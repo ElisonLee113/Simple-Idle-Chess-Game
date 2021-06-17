@@ -31,6 +31,7 @@ function start_game() {
     a.title = "Rules";
     a.href = "https://docs.google.com/document/d/1VrGLpYN0szNXPhu0ikbdw_m5xmWDFWDlHrlDh5i2ICo/edit?usp=sharing";
     a.target="_blank";
+    a.className = "w3-container"
     document.getElementById("left_side").appendChild(a);
     for(var i = 0;i < 9;i++){
         var row = [];
@@ -70,16 +71,20 @@ function start_game() {
     }
     var show_choice = document.createElement("P");
     show_choice.innerHTML = "Chosen cell: None";
+    show_choice.className = "w3-container w3-red";
+    show_choice.color = "white";
     show_choice.setAttribute("id","show_choice");
     document.getElementById("right_side").appendChild(show_choice);
 
     var show_op_choice = document.createElement("P");
     show_op_choice.innerHTML = "Chosen operation: None";
     show_op_choice.setAttribute("id","show_op");
+    show_op_choice.className = "w3-container w3-blue";
+    show_op_choice.color = "white";
     document.getElementById("right_side").appendChild(show_op_choice);
 
     let upbtn = document.createElement("button");
-        upbtn.innerHTML = "Change to UP";
+        upbtn.innerHTML = "UP";
         upbtn.className = "sbigbutton";
         upbtn.onclick = function () {
             op_type = "up";
@@ -87,7 +92,7 @@ function start_game() {
         };
     document.getElementById("right_side").appendChild(upbtn);
     let downbtn = document.createElement("button");
-        downbtn.innerHTML = "Change to DOWN";
+        downbtn.innerHTML = "DOWN";
         downbtn.className = "sbigbutton";
         downbtn.onclick = function () {
             op_type = "down";
@@ -95,7 +100,7 @@ function start_game() {
         };
     document.getElementById("right_side").appendChild(downbtn);
     let leftbtn = document.createElement("button");
-        leftbtn.innerHTML = "Change to LEFT";
+        leftbtn.innerHTML = "LEFT";
         leftbtn.className = "sbigbutton";
         leftbtn.onclick = function () {
             op_type = "left";
@@ -103,7 +108,7 @@ function start_game() {
         };
     document.getElementById("right_side").appendChild(leftbtn);
     let rightbtn = document.createElement("button");
-        rightbtn.innerHTML = "Change to RIGHT";
+        rightbtn.innerHTML = "RIGHT";
         rightbtn.className = "sbigbutton";
         rightbtn.onclick = function () {
             op_type = "right";
@@ -111,7 +116,7 @@ function start_game() {
         };
     document.getElementById("right_side").appendChild(rightbtn);
     let addbtn = document.createElement("button");
-        addbtn.innerHTML = "ADD a piece";
+        addbtn.innerHTML = "ADD";
         addbtn.className = "sbigbutton";
         addbtn.onclick = function () {
             op_type = "add";
@@ -119,7 +124,7 @@ function start_game() {
         };
     document.getElementById("right_side").appendChild(addbtn);
     let idlebtn = document.createElement("button");
-        idlebtn.innerHTML = "Do nothing (IDLE)";
+        idlebtn.innerHTML = "IDLE";
         idlebtn.className = "bigbutton";
         idlebtn.onclick = function () {
             op_type = "idle";
