@@ -166,7 +166,7 @@ function do_game_round(){
             chess_piece[clicked_row-1][clicked_col-1].appear = true;
             chess_piece[clicked_row-1][clicked_col-1].color = "red";
             chess_piece[clicked_row-1][clicked_col-1].direction = "down";
-            document.getElementById("instruction").innerHTML = "Player 2 choose a cell on first row (row,column)";
+            document.getElementById("instruction").innerHTML = "Player 2 choose a cell on first row (row,column) as starting chess piece";
             document.getElementById("show_choice").innerHTML = "Chosen cell: None";
             document.getElementById("show_op").innerHTML = ("Chosen operation: None");
             op_type = "none";
