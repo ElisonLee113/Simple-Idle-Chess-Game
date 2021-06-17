@@ -31,6 +31,7 @@ function start_game() {
     a.title = "Rules";
     a.href = "https://docs.google.com/document/d/1VrGLpYN0szNXPhu0ikbdw_m5xmWDFWDlHrlDh5i2ICo/edit?usp=sharing";
     a.target="_blank";
+    a.style = "color: white;"
     a.className = "w3-container"
     document.getElementById("left_side").appendChild(a);
     for(var i = 0;i < 9;i++){
