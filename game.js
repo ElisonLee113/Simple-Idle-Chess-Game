@@ -359,7 +359,7 @@ async function do_game_round(){
                         cell[cr-1][cc].to_blue();
                     }
                     add_seq[i][0]--;
-                    await sleep(1000);
+                    await sleep(500);
                 }
             }
             else if(chess_piece[cr][cc].direction == "down"){
@@ -375,7 +375,7 @@ async function do_game_round(){
                         cell[cr+1][cc].to_blue();
                     }
                     add_seq[i][0]++;
-                    await sleep(1000);
+                    await sleep(500);
                 }
             }
             else if(chess_piece[cr][cc].direction == "left"){
@@ -391,7 +391,7 @@ async function do_game_round(){
                         cell[cr][cc-1].to_blue();
                     }
                     add_seq[i][1]--;
-                    await sleep(1000);
+                    await sleep(500);
                 }
             }
             else if(chess_piece[cr][cc].direction == "right"){
@@ -407,7 +407,7 @@ async function do_game_round(){
                         cell[cr][cc+1].to_blue();
                     }
                     add_seq[i][1]++;
-                    await sleep(1000);
+                    await sleep(500);
                 }
             }
         }
