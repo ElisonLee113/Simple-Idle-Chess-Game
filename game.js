@@ -167,7 +167,7 @@ function enable_op(){
     document.querySelectorAll(".sbigbutton").forEach(e => e.disabled = false);
 }
 
-function do_game_round(){
+async function do_game_round(){
     if(state == 0){
         if(clicked_row != 1){
             window.alert("please choose a cell on the first row");
@@ -344,7 +344,73 @@ function do_game_round(){
         if(clicked_col != -1) cell[clicked_row-1][clicked_col-1].chosen = false;
         clicked_col = -1,clicked_row = -1;
         disable_all();
-        move_chess();
+        for(var i = 0; i < seq_size; i++){
+            let cr = add_seq[i][0],cc = add_seq[i][1];
+            if(chess_piece[cr][cc].direction == "up"){
+                if(cr != 0 && chess_piece[cr-1][cc].appear == false){
+                    chess_piece[cr-1][cc].color = chess_piece[cr][cc].color;
+                    chess_piece[cr-1][cc].direction = chess_piece[cr][cc].direction
+                    chess_piece[cr-1][cc].appear = true;
+                    chess_piece[cr][cc].appear = false;
+                    if(chess_piece[cr][cc].color == "red"){
+                        cell[cr-1][cc].to_red();
+                    }
+                    else{
+                        cell[cr-1][cc].to_blue();
+                    }
+                    add_seq[i][0]--;
+                    await sleep(1000);
+                }
+            }
+            else if(chess_piece[cr][cc].direction == "down"){
+                if(cr != 8 && chess_piece[cr+1][cc].appear == false){
+                    chess_piece[cr+1][cc].color = chess_piece[cr][cc].color;
+                    chess_piece[cr+1][cc].direction = chess_piece[cr][cc].direction
+                    chess_piece[cr+1][cc].appear = true;
+                    chess_piece[cr][cc].appear = false;
+                    if(chess_piece[cr][cc].color == "red"){
+                        cell[cr+1][cc].to_red();
+                    }
+                    else{
+                        cell[cr+1][cc].to_blue();
+                    }
+                    add_seq[i][0]++;
+                    await sleep(1000);
+                }
+            }
+            else if(chess_piece[cr][cc].direction == "left"){
+                if(cc != 0 && chess_piece[cr][cc-1].appear == false){
+                    chess_piece[cr][cc-1].color = chess_piece[cr][cc].color;
+                    chess_piece[cr][cc-1].direction = chess_piece[cr][cc].direction
+                    chess_piece[cr][cc-1].appear = true;
+                    chess_piece[cr][cc].appear = false;
+                    if(chess_piece[cr][cc].color == "red"){
+                        cell[cr][cc-1].to_red();
+                    }
+                    else{
+                        cell[cr][cc-1].to_blue();
+                    }
+                    add_seq[i][1]--;
+                    await sleep(1000);
+                }
+            }
+            else if(chess_piece[cr][cc].direction == "right"){
+                if(cc != 8 && chess_piece[cr][cc+1].appear == false){
+                    chess_piece[cr][cc+1].color = chess_piece[cr][cc].color;
+                    chess_piece[cr][cc+1].direction = chess_piece[cr][cc].direction
+                    chess_piece[cr][cc+1].appear = true;
+                    chess_piece[cr][cc].appear = false;
+                    if(chess_piece[cr][cc].color == "red"){
+                        cell[cr][cc+1].to_red();
+                    }
+                    else{
+                        cell[cr][cc+1].to_blue();
+                    }
+                    add_seq[i][1]++;
+                    await sleep(1000);
+                }
+            }
+        }
         enable_all();
         document.getElementById("instruction").innerHTML = "Player 1 choose a cell for operation";
         document.getElementById("show_choice").innerHTML = "Chosen cell: None";
@@ -355,76 +421,6 @@ function do_game_round(){
         }
         else{
             enable_op();
-        }
-    }
-}
-
-async function move_chess(){
-    for(var i = 0; i < seq_size; i++){
-        let cr = add_seq[i][0],cc = add_seq[i][1];
-        if(chess_piece[cr][cc].direction == "up"){
-            if(cr != 0 && chess_piece[cr-1][cc].appear == false){
-                chess_piece[cr-1][cc].color = chess_piece[cr][cc].color;
-                chess_piece[cr-1][cc].direction = chess_piece[cr][cc].direction
-                chess_piece[cr-1][cc].appear = true;
-                chess_piece[cr][cc].appear = false;
-                if(chess_piece[cr][cc].color == "red"){
-                    cell[cr-1][cc].to_red();
-                }
-                else{
-                    cell[cr-1][cc].to_blue();
-                }
-                add_seq[i][0]--;
-                await sleep(1000);
-            }
-        }
-        else if(chess_piece[cr][cc].direction == "down"){
-            if(cr != 8 && chess_piece[cr+1][cc].appear == false){
-                chess_piece[cr+1][cc].color = chess_piece[cr][cc].color;
-                chess_piece[cr+1][cc].direction = chess_piece[cr][cc].direction
-                chess_piece[cr+1][cc].appear = true;
-                chess_piece[cr][cc].appear = false;
-                if(chess_piece[cr][cc].color == "red"){
-                    cell[cr+1][cc].to_red();
-                }
-                else{
-                    cell[cr+1][cc].to_blue();
-                }
-                add_seq[i][0]++;
-                await sleep(1000);
-            }
-        }
-        else if(chess_piece[cr][cc].direction == "left"){
-            if(cc != 0 && chess_piece[cr][cc-1].appear == false){
-                chess_piece[cr][cc-1].color = chess_piece[cr][cc].color;
-                chess_piece[cr][cc-1].direction = chess_piece[cr][cc].direction
-                chess_piece[cr][cc-1].appear = true;
-                chess_piece[cr][cc].appear = false;
-                if(chess_piece[cr][cc].color == "red"){
-                    cell[cr][cc-1].to_red();
-                }
-                else{
-                    cell[cr][cc-1].to_blue();
-                }
-                add_seq[i][1]--;
-                await sleep(1000);
-            }
-        }
-        else if(chess_piece[cr][cc].direction == "right"){
-            if(cc != 8 && chess_piece[cr][cc+1].appear == false){
-                chess_piece[cr][cc+1].color = chess_piece[cr][cc].color;
-                chess_piece[cr][cc+1].direction = chess_piece[cr][cc].direction
-                chess_piece[cr][cc+1].appear = true;
-                chess_piece[cr][cc].appear = false;
-                if(chess_piece[cr][cc].color == "red"){
-                    cell[cr][cc+1].to_red();
-                }
-                else{
-                    cell[cr][cc+1].to_blue();
-                }
-                add_seq[i][1]++;
-                await sleep(1000);
-            }
         }
     }
 }
