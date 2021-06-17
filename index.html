@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        canvas {
+            border: 1px solid #d3d3d3;
+            background-color: #f1f1f1;
+        }
+
+        .button {
+          height: 60px;
+          width: 60px;
+          background-color: white;
+          color: black;
+          font-family: consolas;
+          border: 2px solid #4CAF50;
+        }
+
+        .button:hover {
+          background-color: #4CAF50;
+          color: white;
+        }
+        .button:disabled{
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        .bigbutton {
+          vertical-align: bottom;
+          height: 90px;
+          width: 90px;
+          background-color: white;
+          color: black;
+          font-family: consolas;
+          border: 2px solid #4CAF50;
+        }
+
+        .bigbutton:hover {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+
+        .bigbutton:disabled{
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        .sbigbutton {
+          vertical-align: bottom;
+          height: 90px;
+          width: 90px;
+          background-color: white;
+          color: black;
+          font-family: consolas;
+          border: 2px solid #4CAF50;
+        }
+
+        .sbigbutton:hover {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+
+        .sbigbutton:disabled{
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        .gameArea{
+            vertical-align: top;
+        }
+
+        .buttonArea{
+            padding-left: 10px;
+        }
+
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgb(0,0,0);
+          background-color: rgba(0,0,0,0.4);
+          -webkit-animation-name: fadeIn;
+          -webkit-animation-duration: 0.4s;
+          animation-name: fadeIn;
+          animation-duration: 0.4s
+        }
+
+        .modal-content {
+          position: fixed;
+          bottom: 0;
+          background-color: #fefefe;
+          width: 100%;
+          -webkit-animation-name: slideIn;
+          -webkit-animation-duration: 0.4s;
+          animation-name: slideIn;
+          animation-duration: 0.4s
+        }
+
+        .close {
+          color: white;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .modal-header {
+          padding: 2px 16px;
+          background-color: #5cb85c;
+          color: white;
+        }
+
+        .modal-body {padding: 2px 16px;}
+
+        .modal-footer {
+          padding: 2px 16px;
+          background-color: #5cb85c;
+          color: white;
+        }
+
+        @-webkit-keyframes slideIn {
+          from {bottom: -300px; opacity: 0}
+          to {bottom: 0; opacity: 1}
+        }
+
+        @keyframes slideIn {
+          from {bottom: -300px; opacity: 0}
+          to {bottom: 0; opacity: 1}
+        }
+
+        @-webkit-keyframes fadeIn {
+          from {opacity: 0}
+          to {opacity: 1}
+        }
+
+        @keyframes fadeIn {
+          from {opacity: 0}
+          to {opacity: 1}
+        }
+    </style>
+</head>
+<body onload="start_game()">
+  <script src="game.js"> </script>
+  <table>
+      <tr>
+        <td id="left_side" class="gameArea">
+          <p id="score">Score: [Player 1(Red): 0 | Player 2(Blue): 0]</p>
+        </td>
+        <td id="right_side" class="buttonArea">
+          <p id="instruction">Player 1 choose a cell on first row (row,column)</p>
+        </td>
+      </tr>
+  </table>
+
+  <div id="end_game_screen" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" onclick="closewindow()">X</span>
+        <h2>Game Ended</h2>
+      </div>
+      <div class="modal-body">
+        <p id="result"> UwU</p>
+      </div>
+      <div class="modal-footer">
+        <h3>Refresh the page to start another round</h3>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
