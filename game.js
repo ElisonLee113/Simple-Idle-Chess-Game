@@ -24,6 +24,14 @@ window.onclick = function(event) {
 
 function start_game() {
     game_area.start();
+    document.getElementById("left_side").appendChild(document.createElement('br'));
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("Link to rules");
+    a.appendChild(linkText);
+    a.title = "Rules";
+    a.href = "https://docs.google.com/document/d/1VrGLpYN0szNXPhu0ikbdw_m5xmWDFWDlHrlDh5i2ICo/edit?usp=sharing";
+    a.target="_blank";
+    document.getElementById("left_side").appendChild(a);
     for(var i = 0;i < 9;i++){
         var row = [];
         for(var j = 0;j < 9;j++){
