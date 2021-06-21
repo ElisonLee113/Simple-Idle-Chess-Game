@@ -606,12 +606,12 @@ function update_game_area(){
     document.getElementById("score").innerHTML = ("Score: [Player 1(Red): ").concat(s1.toString()," | Player 2(Blue): ",s2.toString(),"]");
     if(s1+s2 == 81){
         if(end_game_shown == false){
-            end_game();
             var tmp = "Winner: Player 1 (Red)";
             if(s2 > s1){
                 tmp = "Winner: Player 2 (Blue)";
             }
-            document.getElementById("result").innerHTML = tmp;
+            document.getElementById("end_game_result").innerHTML = tmp;
+            end_game();
         }
         end_game_shown = true;
     }
