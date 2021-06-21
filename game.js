@@ -7,22 +7,55 @@ var state = 0;
 var clicked_row=-1,clicked_col=-1;
 var op_type = "none";
 var disable_move = [0,0];
+var disable_sound = 0;
+
+function load_music(){
+    sclosewindow();
+}
 
 function end_game() {
-  document.getElementById("end_game_screen").style.display = "block";
+    disable_all();
+    document.getElementById("end_game_screen").style.display = "block";
 }
 
 function closewindow() {
-  document.getElementById("end_game_screen").style.display = "none";
+    document.getElementById("end_game_screen").style.display = "none";
+}
+
+function sclosewindow() {
+    document.getElementById("start_screen").style.display = "none";
 }
 
 window.onclick = function(event) {
-  if (event.target == document.getElementById("end_game_screen")) {
-    document.getElementById("end_game_screen").style.display = "none";
-  }
+    if (event.target == document.getElementById("end_game_screen")) {
+      document.getElementById("end_game_screen").style.display = "none";
+    }
+}
+
+function play_sound(i){
+    if(disable_sound == 1){
+
+    }
+    else if(i == 0){
+        document.getElementById("click_sound").load();
+        document.getElementById("click_sound").play();
+    }
+    else if(i == 1){
+        document.getElementById("move_sound").load();
+        document.getElementById("move_sound").play();
+    }
+    else if(i == 2){
+        document.getElementById("add_sound").load();
+        document.getElementById("add_sound").play();
+    }
+    else{
+        document.getElementById("error_sound").load();
+        document.getElementById("error_sound").play();
+    }
 }
 
 function start_game() {
+    document.getElementById("start_screen").style.display = "block";
     game_area.start();
     document.getElementById("left_side").appendChild(document.createElement('br'));
     var a = document.createElement('a');
@@ -33,7 +66,21 @@ function start_game() {
     a.target="_blank";
     a.style = "color: white;"
     a.className = "w3-container"
-    document.getElementById("left_side").appendChild(a);
+    //document.getElementById("left_side").appendChild(a);
+    let mbtn = document.createElement("button");
+        mbtn.innerHTML = "MUTE SOUND";
+        mbtn.className = "mbigbutton";
+        mbtn.onclick = function () {
+            disable_sound = 1 - disable_sound;
+            if(disable_sound){
+                document.getElementsByClassName("mbigbutton")[0].innerHTML = "UNMUTE SOUND";
+            }
+            else{
+                document.getElementsByClassName("mbigbutton")[0].innerHTML = "MUTE SOUND";
+            }
+        };
+    document.getElementById("left_side").appendChild(document.createElement("br"));
+    document.getElementById("left_side").appendChild(mbtn);
     for(var i = 0;i < 9;i++){
         var row = [];
         for(var j = 0;j < 9;j++){
@@ -64,6 +111,7 @@ function start_game() {
                     clicked_col = btn.dataset.cc;
                     clicked_row = btn.dataset.cr;
                     cell[clicked_row-1][clicked_col-1].chosen = true;
+                    play_sound(0);
                     document.getElementById("show_choice").innerHTML =  ("Chosen cell: ").concat("(",(clicked_row).toString(),", ",(clicked_col).toString(),")")
                 };
                 document.getElementById("right_side").appendChild(btn);
@@ -170,6 +218,8 @@ function enable_op(){
 async function do_game_round(){
     if(state == 0){
         if(clicked_row != 1){
+            play_sound(3);
+            await sleep(500);
             window.alert("please choose a cell on the first row");
         }
         else{
@@ -183,6 +233,7 @@ async function do_game_round(){
             document.getElementById("instruction").innerHTML = "Player 2 choose a cell on first row (row,column) as starting chess piece";
             document.getElementById("show_choice").innerHTML = "Chosen cell: None";
             document.getElementById("show_op").innerHTML = ("Chosen operation: None");
+            play_sound(2);
             op_type = "none";
             cell[clicked_row-1][clicked_col-1].chosen = false;
             clicked_col = -1, clicked_row = -1;
@@ -190,6 +241,7 @@ async function do_game_round(){
     }
     else if(state == 1){
         if(clicked_row != 9){
+            play_sound(3);await sleep(500);
             window.alert("please choose a cell on the last row");
         }
         else{
@@ -206,6 +258,7 @@ async function do_game_round(){
             op_type = "none";
             cell[clicked_row-1][clicked_col-1].chosen = false;
             clicked_col = -1,clicked_row = -1;
+            play_sound(2);
             enable_op();
         }
     }
@@ -214,6 +267,7 @@ async function do_game_round(){
             disable_move[0]--;
         }
         if(op_type == "none"){
+            play_sound(3);await sleep(500);
             window.alert("please choose an operation");
         }
         else if(op_type == "idle"){
@@ -233,14 +287,17 @@ async function do_game_round(){
             }
         }
         else if(clicked_col == -1){
+            play_sound(3);await sleep(500);
             window.alert("please choose a cell");
         }
         else if(op_type == "add"){
             let cr = clicked_row-1, cc = clicked_col-1;
             if(cell[cr][cc].colorcode != "R"){
+                play_sound(3);await sleep(500);
                 window.alert("the cell is not red");
             }
             else if(chess_piece[cr][cc].appear == true){
+                play_sound(3);await sleep(500);
                 window.alert("the cell is occupied by another chess piece");
             }
             else{
@@ -257,6 +314,7 @@ async function do_game_round(){
                 op_type = "none";
                 cell[clicked_row-1][clicked_col-1].chosen = false;
                 clicked_col = -1,clicked_row = -1;
+                play_sound(2);
                 if(disable_move[1] == 1){
                     document.getElementById("instruction").innerHTML = "Player 2 added chess piece in previous round, so player 2 must idle this round";
                     disable_op();
@@ -277,6 +335,7 @@ async function do_game_round(){
                 op_type = "none";
                 cell[clicked_row-1][clicked_col-1].chosen = false;
                 clicked_col = -1,clicked_row = -1;
+                play_sound(1);
                 if(disable_move[1] == 1){
                     document.getElementById("instruction").innerHTML = "Player 2 added chess piece in previous round, so player 2 must idle this round";
                     disable_op();
@@ -286,6 +345,7 @@ async function do_game_round(){
                 }
             }
             else{
+                play_sound(3);await sleep(500);
                 window.alert("there is no red chess piece on the cell");
             }
         }
@@ -299,20 +359,24 @@ async function do_game_round(){
         }
         if(disable_move[1] > 0) disable_move[1]--;
         if(op_type == "none"){
+            play_sound(3);await sleep(500);
             window.alert("please choose an operation");
         }
         else if(op_type == "idle"){
             state++;
         }
         else if(clicked_col == -1){
+            play_sound(3);await sleep(500);
             window.alert("please choose a cell");
         }
         else if(op_type == "add"){
             let cr = clicked_row-1, cc = clicked_col-1;
             if(cell[cr][cc].colorcode != "B"){
+                play_sound(3);await sleep(500);
                 window.alert("the cell is not blue");
             }
             else if(chess_piece[cr][cc].appear == true){
+                play_sound(3);await sleep(500);
                 window.alert("the cell is occupied by another chess piece");
             }
             else{
@@ -323,6 +387,7 @@ async function do_game_round(){
                 chess_piece[cr][cc].to_blue();
                 chess_piece[cr][cc].direction = "up";
                 chess_piece[cr][cc].appear = true;
+                play_sound(2);
             }
         }
         else{
@@ -330,8 +395,10 @@ async function do_game_round(){
             if(chess_piece[cr][cc].appear == true && chess_piece[cr][cc].color == "blue"){
                 chess_piece[cr][cc].direction = op_type;
                 state++;
+                play_sound(1);
             }
             else{
+                play_sound(3);await sleep(500);
                 window.alert("there is no blue chess piece on the cell");
             }
         }
@@ -359,6 +426,7 @@ async function do_game_round(){
                         cell[cr-1][cc].to_blue();
                     }
                     add_seq[i][0]--;
+                    play_sound(1);
                     await sleep(500);
                 }
             }
@@ -375,6 +443,7 @@ async function do_game_round(){
                         cell[cr+1][cc].to_blue();
                     }
                     add_seq[i][0]++;
+                    play_sound(1);
                     await sleep(500);
                 }
             }
@@ -391,6 +460,7 @@ async function do_game_round(){
                         cell[cr][cc-1].to_blue();
                     }
                     add_seq[i][1]--;
+                    play_sound(1);
                     await sleep(500);
                 }
             }
@@ -407,6 +477,7 @@ async function do_game_round(){
                         cell[cr][cc+1].to_blue();
                     }
                     add_seq[i][1]++;
+                    play_sound(1);
                     await sleep(500);
                 }
             }

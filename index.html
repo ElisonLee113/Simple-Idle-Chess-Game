@@ -12,6 +12,10 @@
             background-color: #f1f1f1;
         }
 
+        a{
+            color: green;
+        }
+
         .button {
           font-size : 12px;
           margin: 1px 1px;
@@ -81,6 +85,31 @@
 
 
         .sbigbutton:disabled{
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        .mbigbutton {
+          border-radius: 8px;
+          vertical-align: bottom;
+          height: 40px;
+          width: 480px;
+          background-color: #f1f1f1;
+          color: black;
+          font-family: consolas;
+          border: 2px solid #4CAF50;
+        }
+
+        .mbigbutton:hover {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+        .mbigbutton:disabled{
           pointer-events: none;
           cursor: not-allowed;
           opacity: 0.65;
@@ -161,6 +190,10 @@
             vertical-align: top;
         }
 
+        .button_padding{
+            padding: 5px;
+        }
+
         @-webkit-keyframes slideIn {
           from {bottom: -300px; opacity: 0}
           to {bottom: 0; opacity: 1}
@@ -184,13 +217,25 @@
 </head>
 <body onload="start_game()" style="background-color:#8bc34a;">
   <script src="game.js"> </script>
+  <audio id="click_sound">
+    <source src="button_click.mp3" type="audio/mpeg" preload="auto">
+  </audio>
+  <audio id="move_sound">
+    <source src="chess_move.mp3" type="audio/mpeg" preload="auto">
+  </audio>
+  <audio id="add_sound">
+    <source src="chess_add.mp3" type="audio/mpeg" preload="auto">
+  </audio>
+  <audio id="error_sound">
+    <source src="error.mp3" type="audio/mpeg" preload="auto">
+  </audio>
   <table>
       <tr>
         <td id="left_side" class="gameArea">
           <div class="w3-container w3-green"><p id="score">Score: [Player 1(Red): 0 | Player 2(Blue): 0]</p></div>
         </td>
         <td class="buttonArea">
-          <div class="w3-container w3-light-green stick-left"><h5 id="instruction" style="color: white;">Player 1 choose a cell on first row (row,column) as starting chess piece</h5></div>
+          <div class="w3-container w3-light-green stick-left"><h5 id="instruction" style="font-size: 16px;color: white;">Player 1 choose a cell on first row (row,column) as starting chess piece</h5></div>
           <div id="right_side"></div>
         </td>
         <td style={width: 1%;} class="image_align">
@@ -198,6 +243,21 @@
         </td>
       </tr>
   </table>
+
+  <div id="start_game_screen" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" onclick="closewindow()">X</span>
+        <h2>Game Ended</h2>
+      </div>
+      <div class="modal-body">
+        <p id="result"></p>
+      </div>
+      <div class="modal-footer">
+        <h3>Refresh the page to start another round</h3>
+      </div>
+    </div>
+  </div>
 
   <div id="end_game_screen" class="modal">
     <div class="modal-content">
@@ -210,6 +270,21 @@
       </div>
       <div class="modal-footer">
         <h3>Refresh the page to start another round</h3>
+      </div>
+    </div>
+  </div>
+
+  <div id="start_screen" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Before we start...</h2>
+      </div>
+      <div class="modal-body">
+        <par style="font-size: 20px;">Would you like some music when you are playing?</par>
+        <div class="button_padding"> <button class="mbigbutton" onclick="load_music()"> Sure </button> </div>
+        <div class="button_padding"> <button class="mbigbutton" onclick="sclosewindow()"> Nah </button> </div>
+        <br>
+        <p style="font-size: 20px;">Remember to read the <a href="https://docs.google.com/document/d/1VrGLpYN0szNXPhu0ikbdw_m5xmWDFWDlHrlDh5i2ICo/edit?usp=sharing" target="_blank">rules</a>!</p>
       </div>
     </div>
   </div>
