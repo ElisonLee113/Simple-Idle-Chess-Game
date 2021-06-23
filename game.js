@@ -120,7 +120,7 @@ function start_game() {
     }
     var show_choice = document.createElement("P");
     show_choice.innerHTML = "Chosen cell: None";
-    show_choice.className = "w3-container w3-red";
+    show_choice.className = "w3-container w3-pale-red";
     show_choice.color = "white";
     show_choice.setAttribute("id","show_choice");
     document.getElementById("right_side").appendChild(show_choice);
@@ -128,9 +128,18 @@ function start_game() {
     var show_op_choice = document.createElement("P");
     show_op_choice.innerHTML = "Chosen operation: None";
     show_op_choice.setAttribute("id","show_op");
-    show_op_choice.className = "w3-container w3-blue";
+    show_op_choice.className = "w3-container w3-pale-blue";
     show_op_choice.color = "white";
     document.getElementById("right_side").appendChild(show_op_choice);
+    
+    let addbtn = document.createElement("button");
+        addbtn.innerHTML = "ADD";
+        addbtn.className = "sbigbutton";
+        addbtn.onclick = function () {
+            op_type = "add";
+            document.getElementById("show_op").innerHTML = ("Chosen operation: ADD a piece");
+        };
+    document.getElementById("right_side").appendChild(addbtn);
 
     let upbtn = document.createElement("button");
         upbtn.innerHTML = "UP";
@@ -164,14 +173,6 @@ function start_game() {
             document.getElementById("show_op").innerHTML = ("Chosen operation: Change to RIGHT");
         };
     document.getElementById("right_side").appendChild(rightbtn);
-    let addbtn = document.createElement("button");
-        addbtn.innerHTML = "ADD";
-        addbtn.className = "sbigbutton";
-        addbtn.onclick = function () {
-            op_type = "add";
-            document.getElementById("show_op").innerHTML = ("Chosen operation: ADD a piece");
-        };
-    document.getElementById("right_side").appendChild(addbtn);
     let idlebtn = document.createElement("button");
         idlebtn.innerHTML = "IDLE";
         idlebtn.className = "bigbutton";
