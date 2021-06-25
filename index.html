@@ -217,6 +217,9 @@
 </head>
 <body onload="start_game()" style="background-color:#8bc34a;">
   <script src="game.js"> </script>
+  <audio id="bgm" muted loop autoplay>
+    <source src="sample.mp3" type="audio/mpeg">
+  </audio>
   <audio id="click_sound">
     <source src="button_click.mp3" type="audio/mpeg" preload="auto">
   </audio>
@@ -280,7 +283,7 @@
         <h2>Before we start...</h2>
       </div>
       <div class="modal-body">
-        <par style="font-size: 20px;">Would you like some music when you are playing?</par>
+        <par style="font-size: 20px;">Would you like some music when you are playing? (Due to the autoplay policy of chrome, background music is not allowed if you are using chrome)</par>
         <div class="button_padding"> <button class="mbigbutton" onclick="load_music()"> Sure </button> </div>
         <div class="button_padding"> <button class="mbigbutton" onclick="sclosewindow()"> Nah </button> </div>
         <br>

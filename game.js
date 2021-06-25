@@ -9,8 +9,12 @@ var op_type = "none";
 var disable_move = [0,0];
 var disable_sound = 0;
 
-function load_music(){
+async function load_music(){
     sclosewindow();
+    document.getElementById("bgm").muted = false;
+    document.getElementById("bgm").volume=0.4;
+    document.getElementById("bgm").load();
+    document.getElementById("bgm").play();
 }
 
 function end_game() {
@@ -131,7 +135,7 @@ function start_game() {
     show_op_choice.className = "w3-container w3-pale-blue";
     show_op_choice.color = "white";
     document.getElementById("right_side").appendChild(show_op_choice);
-    
+
     let addbtn = document.createElement("button");
         addbtn.innerHTML = "ADD";
         addbtn.className = "sbigbutton";
